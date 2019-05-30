@@ -1,1 +1,3 @@
 Resample ROI to fMRI geometry with trilinear interp, then take weighted average of fMRI voxels with weight of resampled ROI image value.
+
+Reformat ROI csv to match the command line of our maths tool (see fs-dev code)
