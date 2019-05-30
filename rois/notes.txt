@@ -1,0 +1,1 @@
+Resample ROI to fMRI geometry with trilinear interp, then take weighted average of fMRI voxels with weight of resampled ROI image value.
