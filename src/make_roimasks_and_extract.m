@@ -31,7 +31,7 @@ rois.values = cellfun(@str2num,rois.values,'UniformOutput',false);
 
 % Create mask image for each ROI. Resample the ROI images to fMRI voxels,
 % using trilinear interp so we get approximately reasonable weights for
-% making ROI averages.
+% making ROI averages. That interp doesn't work super well though.
 flags = struct('mask',true,'mean',false,'interp',1,'which',1, ...
 	'wrap',[0 0 0],'prefix','r');
 for r = 1:height(rois)
@@ -57,13 +57,13 @@ osize = size(Yfmri);
 Yfmri = reshape(Yfmri,[],osize(4))';
 
 % For each ROI and each time point, extract data
-roidata = nan(Nfmri,height(rois));
+roidata = nan(osize(4),height(rois));
 for r = 1:height(rois)
 	roi_nii = [roi_dir '/rroi_' rois.region{r} '.nii'];
 	Vroi = spm_vol(roi_nii);
 	Yroi = spm_read_vols(Vroi);
 	
-	weights = repmat(Yroi(:),osize(4),1);
+	weights = repmat(Yroi(:)',osize(4),1);
 	weighted = weights .* Yfmri;
 	weightsum = sum(Yroi(:));
 	roidata(:,r) = sum(weighted,2) / weightsum;
@@ -71,6 +71,6 @@ for r = 1:height(rois)
 end
 
 % Save ROI data to file
-roidata = array2table(roi_data,'VariableNames',rois.region);
+roidata = array2table(roidata,'VariableNames',rois.region);
 roi_csv = [out_dir '/roidata.csv'];
 writetable(roidata,roi_csv)
