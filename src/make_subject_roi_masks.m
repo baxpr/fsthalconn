@@ -1,9 +1,11 @@
+function make_subject_roi_masks(out_dir,subject_dir,roiinfo_csv)
+
 % System command string to set up freesurfer
 fscmd = ['export FREESURFER_HOME=/usr/local/freesurfer && ' ...
 	'source ${FREESURFER_HOME}/SetUpFreeSurfer.sh'];
 
-% Load ROI combining information
-rois = readtable(which('CombinedFreesurferLabels_reorg.csv'));
+% Load ROI combining information. This file must be in the path
+rois = readtable(which(roiinfo_csv));
 
 % Identify needed ROI mgz files and convert to nifti
 ufiles = table(unique(rois.fsfile),'VariableNames',{'mgzroot'});
