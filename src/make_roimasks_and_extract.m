@@ -55,6 +55,7 @@ Vfmri = spm_vol(fmri_nii);
 Yfmri = spm_read_vols(Vfmri);
 osize = size(Yfmri);
 Yfmri = reshape(Yfmri,[],osize(4))';
+Yfmri(isnan(Yfmri(:))) = 0;
 
 % For each ROI and each time point, extract data
 roidata = nan(osize(4),height(rois));
@@ -62,6 +63,7 @@ for r = 1:height(rois)
 	roi_nii = [roi_dir '/rroi_' rois.region{r} '.nii'];
 	Vroi = spm_vol(roi_nii);
 	Yroi = spm_read_vols(Vroi);
+	Yroi(isnan(Yroi(:))) = 0;
 	
 	weights = repmat(Yroi(:)',osize(4),1);
 	weighted = weights .* Yfmri;
