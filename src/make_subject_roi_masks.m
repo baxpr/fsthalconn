@@ -1,4 +1,4 @@
-function make_subject_roi_masks(out_dir,subject_dir,roiinfo_csv)
+function roi_dir = make_subject_roi_masks(out_dir,subject_dir,roiinfo_csv)
 
 % System command string to set up freesurfer
 fscmd = ['export FREESURFER_HOME=/usr/local/freesurfer && ' ...
@@ -13,7 +13,9 @@ clear unii
 for f = 1:length(ufsfiles)
 	ufiles.mgz{f,1} = [subject_dir '/mri/' ufiles.mgzroot{f}];
 	[~,n] = fileparts(ufiles.mgzroot{f});
-	ufiles.nii{f,1} = [out_dir '/subject_rois/' n '.nii'];
+	roi_dir = [out_dir '/subject_rois'];
+	if ~exist(roi_dir,'dir'), mkdir(roi_dir), end
+	ufiles.nii{f,1} = [roi_dir '/' n '.nii'];
 	cmd = [fscmd ' && mri_convert ' ufiles.mgz{f,1} ' ' ufiles.nii{f,1}];
 	system(cmd);
 end
@@ -34,7 +36,7 @@ for r = 1:height(rois)
 	Yroi(ismember(Y(:),rois.values{r})) = 1;
 	Vroi = V;
 	Vroi.pinfo(1:2) = [1 0];
-	Vroi.fname = [out_dir '/subject_rois/roi_' rois.region{r} '.nii'];
+	Vroi.fname = [roi_dir '/roi_' rois.region{r} '.nii'];
 	spm_write_vol(Vroi,Yroi);
 end
 
