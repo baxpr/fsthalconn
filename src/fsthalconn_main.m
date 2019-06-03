@@ -12,9 +12,9 @@ function fsthalconn_main( ...
 % streams
 for niitag = {'removegm_nii','keepgm_nii','wremovegm_nii','wkeepgm_nii'}
 	nii = eval(niitag{1});
-	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag);
-	compute_connectivity_matrix(out_dir,roidata_csv,niitag);
-	compute_connectivity_maps(out_dir,roidata_csv,nii,niitag);
+	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag{1});
+	compute_connectivity_matrix(out_dir,roidata_csv,niitag{1});
+	compute_connectivity_maps(out_dir,roidata_csv,nii,niitag{1});
 end
 
 % Mask MNI space connectivity maps (leniently) to reduce disk usage
