@@ -12,7 +12,7 @@ function fsthalconn_main( ...
 % streams
 for niitag = {'removegm_nii','keepgm_nii','wremovegm_nii','wkeepgm_nii'}
 	nii = eval(niitag{1});
-	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii);
+	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag);
 	compute_connectivity_matrix(out_dir,roidata_csv,niitag);
 	compute_connectivity_maps(out_dir,roidata_csv,nii,niitag);
 end

@@ -1,10 +1,10 @@
-function roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,fmri_nii)
+function roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag)
 
 % For each unique ROI file, resample the fMRI to its space for best data
 % extraction, the extract
 flags = struct('mask',true,'mean',false,'interp',0,'which',1, ...
 	'wrap',[0 0 0],'prefix','r');
-Vfmri = spm_vol(fmri_nii);
+Vfmri = spm_vol(nii);
 roidata = nan(length(Vfmri),height(rois));
 
 for u = 1:height(urois)
@@ -13,8 +13,8 @@ for u = 1:height(urois)
 	
 	% Resample and load the fMRI
 	fprintf('   resample and load\n')
-	spm_reslice_quiet({urois.nii{u} fmri_nii},flags);
-	[p,n,e] = fileparts(fmri_nii);
+	spm_reslice_quiet({urois.nii{u} nii},flags);
+	[p,n,e] = fileparts(nii);
 	rfmri_nii = fullfile(p,['r' n e]);
 	movefile(rfmri_nii,fullfile(p,sprintf('r%d%s%s',u,n,e)));
 	rfmri_nii = fullfile(p,sprintf('r%d%s%s',u,n,e));
@@ -44,7 +44,7 @@ end
 
 % Save ROI data to file
 roidata = array2table(roidata,'VariableNames',rois.region);
-roidata_csv = [out_dir '/roidata.csv'];
+roidata_csv = [out_dir '/roidata_' niitag '.csv'];
 writetable(roidata,roidata_csv)
 
 
