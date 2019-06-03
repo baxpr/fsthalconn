@@ -61,8 +61,8 @@ for u = 1:height(ufiles)
 	spm_reslice({ufiles.nii{u} fmri_nii},flags);
 	[p,n,e] = fileparts(fmri_nii);
 	rfmri_nii = fullfile(p,['r' n e]);
-	movefile(rfmri_nii,fullfile(p,sprintf('r%d%s%s',n,e)));
-	rfmri_nii = fullfile(p,sprintf('r%d%s%s',n,e));
+	movefile(rfmri_nii,fullfile(p,sprintf('r%d%s%s',u,n,e)));
+	rfmri_nii = fullfile(p,sprintf('r%d%s%s',u,n,e));
 	Vrfmri = spm_vol(rfmri_nii);
 	Yrfmri = spm_read_vols(Vrfmri);
 	osize = size(Yrfmri);
