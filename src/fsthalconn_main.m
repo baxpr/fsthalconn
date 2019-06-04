@@ -1,6 +1,7 @@
 function fsthalconn_main( ...
 	out_dir,subject_dir,roiinfo_csv, ...
 	removegm_nii,keepgm_nii,wremovegm_nii,wkeepgm_nii, ...
+	fwhm, ...
 	project,subject,session,scan, ...
 	magick_path ...
 	)
@@ -10,12 +11,14 @@ function fsthalconn_main( ...
 
 % Compute connectivity matrices and maps for four different preprocessing
 % streams
-for niitag = {'removegm_nii','keepgm_nii','wremovegm_nii','wkeepgm_nii'}
-	nii = eval(niitag{1});
+for niitag = {'removegm','keepgm','wremovegm','wkeepgm'}
+	nii = eval([niitag{1} '_nii']);  % The worst hack
 	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag{1});
 	compute_connectivity_matrix(out_dir,roidata_csv,niitag{1});
 	compute_connectivity_maps(out_dir,roidata_csv,nii,niitag{1});
 end
+
+% Smooth connectivity maps
 
 % Mask MNI space connectivity maps (leniently) to reduce disk usage
 
