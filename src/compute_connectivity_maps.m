@@ -1,4 +1,4 @@
-function compute_connectivity_maps(out_dir,roidata_csv,fmri_nii,filetag)
+function compute_connectivity_maps(out_dir,roidata_csv,fmri_nii,fwhm,filetag)
 
 % Load ROI data from make_roimasks_and_extract.m
 roidata = readtable(roidata_csv);
