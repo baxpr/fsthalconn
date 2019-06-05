@@ -1,7 +1,7 @@
 function mask_mni(out_dir)
 
-D = dir([out_dir '/*Z*.nii']);
-fmri_niis = cellstr(char(D.name));
+D = dir([out_dir '/*Z_*_w*gm.nii']);
+fmri_niis = strcat([out_dir '/'],cellstr(char(D.name)));
 
 for f = 1:length(fmri_niis)
 
