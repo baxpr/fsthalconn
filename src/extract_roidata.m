@@ -25,10 +25,10 @@ for u = 1:height(urois)
 	Yrfmri(isnan(Yrfmri(:))) = 0;
 	
 	% Extract data for all matching rois
-	fprintf('   extract\n')
+	fprintf('   extract %d rois\n',length(rinds))
 	rinds = find(strcmp(rois.fsfile,urois.mgzroot{u}));
 	for r = 1:length(rinds)
-		fprintf('       %s\n',rois.region{rinds(r)});
+		%fprintf('       %s\n',rois.region{rinds(r)});
 		roi_nii = [roi_dir '/roi_' rois.region{rinds(r)} '.nii'];
 		Vroi = spm_vol(roi_nii);
 		Yroi = spm_read_vols(Vroi);

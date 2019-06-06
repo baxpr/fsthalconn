@@ -15,6 +15,7 @@ spm_jobman('initcfg');
 % Compute connectivity matrices and maps (smoothed and unsmoothed) for four
 % different preprocessing streams
 for niitag = {'removegm','keepgm','wremovegm','wkeepgm'}
+	disp(['--- ' niitag{1} ' -----------------------------------------------'])
 	nii = eval([niitag{1} '_nii']);  % The worst hack
 	roidata_csv = extract_roidata(out_dir,roi_dir,rois,urois,nii,niitag{1});
 	compute_connectivity_matrix(out_dir,roidata_csv,niitag{1});
