@@ -22,11 +22,9 @@ for r = 1:width(roidata)
 	Yout = reshape(Z(r,:),osize(1:3));
 	spm_write_vol(Vout,Yout);
 	
-	sYout = nan(size(Yout));
-	spm_smooth(Yout,sYout,str2double(fwhm));
-	Vout.fname = fullfile(out_dir, ...
+	sfname = fullfile(out_dir, ...
 		['sZ_' roidata.Properties.VariableNames{r} '_' filetag '.nii']);
-	spm_write_vol(Vout,sYout);
+	spm_smooth(Vout.fname,sfname,str2double(fwhm));
 	
 end
 
