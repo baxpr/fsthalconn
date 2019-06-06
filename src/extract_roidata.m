@@ -25,8 +25,8 @@ for u = 1:height(urois)
 	Yrfmri(isnan(Yrfmri(:))) = 0;
 	
 	% Extract data for all matching rois
-	fprintf('   extract %d rois\n',length(rinds))
 	rinds = find(strcmp(rois.fsfile,urois.mgzroot{u}));
+	fprintf('   extract %d rois\n',length(rinds))
 	for r = 1:length(rinds)
 		%fprintf('       %s\n',rois.region{rinds(r)});
 		roi_nii = [roi_dir '/roi_' rois.region{rinds(r)} '.nii'];
