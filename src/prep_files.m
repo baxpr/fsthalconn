@@ -1,26 +1,15 @@
-function [fmri_nii,mt1_nii,deffwd_nii,gray_nii,white_nii,csf_nii] = prep_files( ...
-	out_dir,fmri_niigz,mt1_niigz,deffwd_niigz,gray_niigz,white_niigz,csf_niigz)
+function [removegm_nii,keepgm_nii,wremovegm_nii,wkeepgm_nii, ...
+	wedge_nii,wbrainmask_nii] = ...
+	prep_files( ...
+	out_dir, ...
+	removegm_niigz,keepgm_niigz,wremovegm_niigz,wkeepgm_niigz, ...
+	wedge_niigz,wbrainmask_niigz)
 
-copyfile(fmri_niigz,[out_dir '/fmri.nii.gz']);
-system(['gunzip -f ' out_dir '/fmri.nii.gz']);
-fmri_nii = [out_dir '/fmri.nii'];
-
-copyfile(mt1_niigz,[out_dir '/mt1.nii.gz']);
-system(['gunzip -f ' out_dir '/mt1.nii.gz']);
-mt1_nii = [out_dir '/mt1.nii'];
-
-copyfile(deffwd_niigz,[out_dir '/y_deffwd.nii.gz']);
-system(['gunzip -f ' out_dir '/y_deffwd.nii.gz']);
-deffwd_nii = [out_dir '/y_deffwd.nii'];
-
-copyfile(gray_niigz,[out_dir '/gray.nii.gz']);
-system(['gunzip -f ' out_dir '/gray.nii.gz']);
-gray_nii = [out_dir '/gray.nii'];
-
-copyfile(white_niigz,[out_dir '/white.nii.gz']);
-system(['gunzip -f ' out_dir '/white.nii.gz']);
-white_nii = [out_dir '/white.nii'];
-
-copyfile(csf_niigz,[out_dir '/csf.nii.gz']);
-system(['gunzip -f ' out_dir '/csf.nii.gz']);
-csf_nii = [out_dir '/csf.nii'];
+% Terrible hack with eval again to copy files to out_dir and unzip
+for tag = {'removegm','keepgm','wremovegm','wkeepgm', ...
+		'wedge','wbrainmask'}
+	copyfile(eval([tag{1} '_niigz']),[out_dir '/' tag{1} '.nii.gz']);
+	system(['gunzip -f ' out_dir '/' tag{1} '.nii.gz']);
+	cmd = [tag{1} '_nii = [out_dir ''/'' tag{1} ''.nii''];'];
+	eval(cmd);
+end

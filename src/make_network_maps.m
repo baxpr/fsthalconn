@@ -30,10 +30,11 @@ spm_check_orientations([Vmap;Vedge;Vmask]);
 % Add the edge image at a weird place that will be mapped to black in
 % the colormap
 map = Ymap;
+map(~keeps) = 0;
+zmax = 0.9*max(abs(map(keeps)));
 p = prctile(map(keeps),[10,90]);
 map( map(:)>p(1) & map(:)<p(2) ) = 0;
-map( map(:)==0   & Yedge(:)'>0 ) = 0.0864;
-
+map( map(:)==0   & Yedge(:)>0 ) = 0.0864*zmax/0.9;
 
 % PDF figures
 
@@ -86,7 +87,7 @@ ss = round(20 : (ns-30)/9 : ns-10);
 for sl = 1:9
 	ax = ['slice' num2str(sl)];
 	axes(figH.(ax))
-	imagesc(imrotate(map(:,:,ss(sl)),90),[-1 1])
+	imagesc(imrotate(map(:,:,ss(sl)),90),[-zmax zmax])
 	axis image off
 end
 
