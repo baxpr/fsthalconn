@@ -9,6 +9,9 @@ addOptional(P,'keepgm_niigz','/INPUTS/fmri.nii.gz');
 addOptional(P,'wremovegm_niigz','/INPUTS/fmri.nii.gz');
 addOptional(P,'wkeepgm_niigz','/INPUTS/fmri.nii.gz');
 
+addOptional(P,'wedge_niigz','/INPUTS/redge_wgray.nii.gz');
+addOptional(P,'wbrainmask_niigz','/INPUTS/rwmask.nii.gz');
+
 addOptional(P,'fwhm','6');
 
 addOptional(P,'project','UNK_PROJ');
@@ -26,6 +29,9 @@ removegm_niigz = P.Results.removegm_niigz;
 keepgm_niigz = P.Results.keepgm_niigz;
 wremovegm_niigz = P.Results.wremovegm_niigz;
 wkeepgm_niigz = P.Results.wkeepgm_niigz;
+
+wedge_niigz = P.Results.wedge_niigz;
+wbrainmask_niigz = P.Results.wbrainmask_niigz;
 
 fwhm = P.Results.fwhm;
 
@@ -51,7 +57,8 @@ fprintf('out_dir:         %s\n',out_dir);
 %% Process
 fsthalconn_main( ...
 	out_dir,subject_dir,roiinfo_csv, ...
-	removegm_nii,keepgm_nii,wremovegm_nii,wkeepgm_nii, ...
+	removegm_niigz,keepgm_niigz,wremovegm_niigz,wkeepgm_niigz, ...
+	wedge_niigz,wbrainmask_niigz, ...
 	fwhm, ...
 	project,subject,session,scan, ...
 	magick_path ...
