@@ -37,9 +37,7 @@ mask_mni(out_dir);
 
 
 % Generate PDF report
-
-
-make_pdf(out_dir,wmeanfmri_nii,wt1_nii,magick_path, ...
+make_pdf(out_dir,t1_nii,wmeanfmri_nii,wt1_nii,magick_path, ...
 	project,subject,session,scan);
 
 
