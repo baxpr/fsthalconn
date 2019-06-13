@@ -12,7 +12,7 @@ for u = 1:height(urois)
 	roi_dir = [out_dir '/subject_rois'];
 	if ~exist(roi_dir,'dir'), mkdir(roi_dir), end
 	urois.nii{u,1} = [roi_dir '/' n '.nii'];
-	cmd = ['bash mri_convert_run.sh ' urois.mgz{u,1} ' ' urois.nii{u,1}];
+	cmd = ['bash ' which('mri_convert_run.sh') ' ' urois.mgz{u,1} ' ' urois.nii{u,1}];
 	system(cmd);
 end
 
