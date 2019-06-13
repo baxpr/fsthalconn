@@ -40,6 +40,10 @@ addOptional(P,'magick_path','/usr/bin');
 
 parse(P,varargin{:});
 
+out_dir = P.Results.out_dir;
+subject_dir = P.Results.subject_dir;
+roiinfo_csv = P.Results.roiinfo_csv;
+
 removegm_niigz = P.Results.removegm_niigz;
 keepgm_niigz = P.Results.keepgm_niigz;
 wremovegm_niigz = P.Results.wremovegm_niigz;
@@ -47,6 +51,10 @@ wkeepgm_niigz = P.Results.wkeepgm_niigz;
 
 wedge_niigz = P.Results.wedge_niigz;
 wbrainmask_niigz = P.Results.wbrainmask_niigz;
+
+wmeanfmri_niigz = P.Results.wmeanfmri_niigz;
+t1_niigz = P.Results.t1_niigz;
+wt1_niigz = P.Results.wt1_niigz;
 
 fwhm = P.Results.fwhm;
 
@@ -57,7 +65,6 @@ scan    = P.Results.scan;
 
 magick_path = P.Results.magick_path;
 
-out_dir = P.Results.out_dir;
 
 fprintf('%s %s %s\n',project,subject,session);
 fprintf('fmri scan:       %s\n',scan);
