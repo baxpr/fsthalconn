@@ -1,9 +1,5 @@
 function [roi_dir,rois,urois] = make_roimasks(out_dir,subject_dir,roiinfo_csv)
 
-% System command string to set up freesurfer
-fscmd = ['export FREESURFER_HOME=/usr/local/freesurfer && ' ...
-	'. ${FREESURFER_HOME}/SetUpFreeSurfer.sh'];
-
 % Load ROI combining information. This file must be in the path
 rois = readtable(which(roiinfo_csv));
 
@@ -16,7 +12,7 @@ for u = 1:height(urois)
 	roi_dir = [out_dir '/subject_rois'];
 	if ~exist(roi_dir,'dir'), mkdir(roi_dir), end
 	urois.nii{u,1} = [roi_dir '/' n '.nii'];
-	cmd = [fscmd ' && mri_convert ' urois.mgz{u,1} ' ' urois.nii{u,1}];
+	cmd = ['bash mri_convert_run.sh ' urois.mgz{u,1} ' ' urois.nii{u,1}];
 	system(cmd);
 end
 
