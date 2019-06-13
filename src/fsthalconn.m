@@ -4,6 +4,18 @@ function fsthalconn(varargin)
 %% Parse inputs
 P = inputParser;
 
+	out_dir,subject_dir,roiinfo_csv, ...
+	removegm_niigz,keepgm_niigz,wremovegm_niigz,wkeepgm_niigz, ...
+	wedge_niigz,wbrainmask_niigz, ...
+	wmeanfmri_niigz,t1_niigz,wt1_niigz, ...
+	fwhm, ...
+	project,subject,session,scan, ...
+	magick_path ...
+
+addOptional(P,'out_dir','/OUTPUTS');
+addOptional(P,'subject_dir','/INPUTS/SUBJECT');
+addOptional(P,'roiinfo_csv','CombinedFreesurferLabels_reorg.csv');
+
 addOptional(P,'removegm_niigz','/INPUTS/fmri.nii.gz');
 addOptional(P,'keepgm_niigz','/INPUTS/fmri.nii.gz');
 addOptional(P,'wremovegm_niigz','/INPUTS/fmri.nii.gz');
@@ -11,6 +23,10 @@ addOptional(P,'wkeepgm_niigz','/INPUTS/fmri.nii.gz');
 
 addOptional(P,'wedge_niigz','/INPUTS/redge_wgray.nii.gz');
 addOptional(P,'wbrainmask_niigz','/INPUTS/rwmask.nii.gz');
+
+addOptional(P,'wmeanfmri_niigz','/INPUTS/wmeanadfmri.nii.gz');
+addOptional(P,'t1_niigz','/INPUTS/mt1.nii.gz');
+addOptional(P,'wt1_niigz','/INPUTS/wmt1.nii.gz');
 
 addOptional(P,'fwhm','6');
 
@@ -21,7 +37,6 @@ addOptional(P,'scan','UNK_SCAN');
 
 addOptional(P,'magick_path','/usr/bin');
 
-addOptional(P,'out_dir','/OUTPUTS');
 
 parse(P,varargin{:});
 
@@ -59,8 +74,15 @@ fsthalconn_main( ...
 	out_dir,subject_dir,roiinfo_csv, ...
 	removegm_niigz,keepgm_niigz,wremovegm_niigz,wkeepgm_niigz, ...
 	wedge_niigz,wbrainmask_niigz, ...
+	wmeanfmri_niigz,t1_niigz,wt1_niigz, ...
 	fwhm, ...
 	project,subject,session,scan, ...
 	magick_path ...
-	)
+	);
+
+
+%% Exit
+if isdeployed
+	exit
+end
 

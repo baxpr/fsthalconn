@@ -41,12 +41,6 @@ make_pdf(out_dir,t1_nii,wmeanfmri_nii,wt1_nii,magick_path, ...
 	project,subject,session,scan);
 
 
-% Exit
-if isdeployed
-	exit
-end
-
-
 
 
 
