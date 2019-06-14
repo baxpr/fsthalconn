@@ -41,6 +41,8 @@ make_pdf(out_dir,t1_nii,wmeanfmri_nii,wt1_nii,magick_path, ...
 	project,subject,session,scan);
 
 
+% Organize and clean up
+organize_outputs(out_dir,roiinfo_csv);
 
 
 
