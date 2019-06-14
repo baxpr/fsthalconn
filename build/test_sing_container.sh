@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# singularity pull shub://baxpr/fsthalconn:v1.0.3
+# singularity pull shub://baxpr/fsthalconn:v1.1.0
 
 # Binding fails with .. in paths so we move up a directory
 cd ..
@@ -10,7 +10,7 @@ singularity run --cleanenv \
   --bind INPUTS:/INPUTS \
   --bind OUTPUTS:/OUTPUTS \
   --bind freesurfer_license.txt:/usr/local/freesurfer/license.txt \
-  build/baxpr-fsthalconn-master-v1.0.3.simg \
+  build/baxpr-fsthalconn-master-v1.1.0.simg \
   out_dir /OUTPUTS \
   subject_dir /INPUTS/SUBJECT \
   roiinfo_csv CombinedFreesurferLabels_reorg.csv \
