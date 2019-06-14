@@ -11,24 +11,26 @@ for u = 1:height(urois)
 	
 	fprintf('Working on %s\n',urois.mgzroot{u});
 	
-	% Resample and load the fMRI
+	% Resample the fMRI to ROI image space
 	fprintf('   resample and load\n')
 	spm_reslice_quiet({urois.nii{u} nii},flags);
 	[p,n,e] = fileparts(nii);
 	rfmri_nii = fullfile(p,['r' n e]);
 	movefile(rfmri_nii,fullfile(p,sprintf('r%d%s%s',u,n,e)));
 	rfmri_nii = fullfile(p,sprintf('r%d%s%s',u,n,e));
-
+	
+	% Find the set of ROIs derived from the current ROI geom
 	rinds = find(strcmp(rois.fsfile,urois.mgzroot{u}));
 	fprintf('   extract %d rois\n',length(rinds))
-
+	
+	% Load resampled fmri volume by volume to save memory
 	for v = 1:length(Vfmri)
 		
 		Vrfmri = spm_vol([rfmri_nii ',' num2str(v)]);
 		Yrfmri = spm_read_vols(Vrfmri);
 		Yrfmri = reshape(Yrfmri,[],1)';
 		Yrfmri(isnan(Yrfmri(:))) = 0;
-	
+		
 		% Extract data for all matching rois
 		for r = 1:length(rinds)
 			%fprintf('       %s\n',rois.region{rinds(r)});
@@ -38,7 +40,7 @@ for u = 1:height(urois)
 			Yroi(isnan(Yroi(:))) = 0;
 			roidata(v,rinds(r)) = mean(Yrfmri(:,Yroi(:)>0),2);
 		end
-
+		
 	end
 	
 	% Clean up
