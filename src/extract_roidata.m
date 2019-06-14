@@ -18,22 +18,27 @@ for u = 1:height(urois)
 	rfmri_nii = fullfile(p,['r' n e]);
 	movefile(rfmri_nii,fullfile(p,sprintf('r%d%s%s',u,n,e)));
 	rfmri_nii = fullfile(p,sprintf('r%d%s%s',u,n,e));
-	Vrfmri = spm_vol(rfmri_nii);
-	Yrfmri = spm_read_vols(Vrfmri);
-	osize = size(Yrfmri);
-	Yrfmri = reshape(Yrfmri,[],osize(4))';
-	Yrfmri(isnan(Yrfmri(:))) = 0;
-	
-	% Extract data for all matching rois
+
 	rinds = find(strcmp(rois.fsfile,urois.mgzroot{u}));
 	fprintf('   extract %d rois\n',length(rinds))
-	for r = 1:length(rinds)
-		%fprintf('       %s\n',rois.region{rinds(r)});
-		roi_nii = [roi_dir '/roi_' rois.region{rinds(r)} '.nii'];
-		Vroi = spm_vol(roi_nii);
-		Yroi = spm_read_vols(Vroi);
-		Yroi(isnan(Yroi(:))) = 0;
-		roidata(:,rinds(r)) = mean(Yrfmri(:,Yroi(:)>0),2);
+
+	for v = 1:length(Vfmri)
+		
+		Vrfmri = spm_vol([rfmri_nii ',' num2str(v)]);
+		Yrfmri = spm_read_vols(Vrfmri);
+		Yrfmri = reshape(Yrfmri,[],1)';
+		Yrfmri(isnan(Yrfmri(:))) = 0;
+	
+		% Extract data for all matching rois
+		for r = 1:length(rinds)
+			%fprintf('       %s\n',rois.region{rinds(r)});
+			roi_nii = [roi_dir '/roi_' rois.region{rinds(r)} '.nii'];
+			Vroi = spm_vol(roi_nii);
+			Yroi = spm_read_vols(Vroi);
+			Yroi(isnan(Yroi(:))) = 0;
+			roidata(v,rinds(r)) = mean(Yrfmri(:,Yroi(:)>0),2);
+		end
+
 	end
 	
 	% Clean up
