@@ -9,6 +9,7 @@ singularity run --cleanenv \
   --home `pwd`/INPUTS \
   --bind INPUTS:/INPUTS \
   --bind OUTPUTS:/OUTPUTS \
+  --bind freesurfer_license.txt:/usr/local/freesurfer/license.txt \
   build/baxpr-fsthalconn-master-v1.0.3.simg \
   out_dir /OUTPUTS \
   subject_dir /INPUTS/SUBJECT \

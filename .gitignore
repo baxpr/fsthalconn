@@ -7,3 +7,5 @@ localdocker.sh
 *.gz
 spm12*
 .DS_Store
+freesurfer_license.txt
+error.log
