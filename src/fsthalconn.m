@@ -6,7 +6,7 @@ P = inputParser;
 
 addOptional(P,'out_dir','/OUTPUTS');
 addOptional(P,'subject_dir','/INPUTS/SUBJECT');
-addOptional(P,'roiinfo_csv','CombinedFreesurferLabels_reorg.csv');
+addOptional(P,'roiinfo_csv','CombinedFreesurferLabels_v2_reorg.csv');
 
 addOptional(P,'removegm_niigz','/INPUTS/fmri.nii.gz');
 addOptional(P,'keepgm_niigz','/INPUTS/fmri.nii.gz');
