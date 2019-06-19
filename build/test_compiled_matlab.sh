@@ -8,7 +8,7 @@ sed -i 's/rights="none" pattern="PDF"/rights="read | write" pattern="PDF"/' \
 bash ../bin/run_spm12.sh /usr/local/MATLAB/MATLAB_Runtime/v92 function fsthalconn \
 out_dir ../OUTPUTS \
 subject_dir ../INPUTS/SUBJECT \
-roiinfo_csv CombinedFreesurferLabels_reorg.csv \
+roiinfo_csv CombinedFreesurferLabels_v2_reorg.csv \
 removegm_niigz ../INPUTS/filtered_removegm_noscrub_nadfmri.nii.gz \
 keepgm_niigz ../INPUTS/filtered_keepgm_noscrub_nadfmri.nii.gz \
 wremovegm_niigz ../INPUTS/filtered_removegm_noscrub_wadfmri.nii.gz \
