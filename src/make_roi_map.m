@@ -31,7 +31,7 @@ rois = {
 	'HIPP' 
 	'THAL_Intralaminar' 
 	'PAR_ppc' 
-	'THAL_LateralDorsal' 
+	'THAL_LateralPosterior' 
 	'PFC_lat' 
 	'THAL_MD_m' 
 	'TMP_i' 
