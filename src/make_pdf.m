@@ -67,7 +67,7 @@ for roi_label = {
 		'LVIS'
 		'LPAR'
 		'LPFC'
-		'LTHAL_LateralDorsal'
+		'LTHAL_LateralPosterior'
 		'LTHAL_VentralLateral'
 		}'
 	make_network_maps( ...
