@@ -11,6 +11,8 @@ for f = 1:length(fmri_niis)
 	flags = struct('mask',true,'mean',false,'interp',0,'which',1, ...
         'wrap',[0 0 0],'prefix','r');
 	icv_nii = [spm('dir') '/tpm/mask_ICV.nii'];
+	copyfile(icv_nii,[out_dir '/mask_ICV.nii']);
+	icv_nii = [out_dir '/mask_ICV.nii'];
 	spm_reslice_quiet({[fmri_nii ',1'],icv_nii},flags);
 	[p,n,e] = fileparts(icv_nii);
 	ricv_nii = fullfile(p,['r' n e]);
